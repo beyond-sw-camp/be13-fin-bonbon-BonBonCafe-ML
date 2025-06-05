@@ -1,0 +1,10 @@
+flask
+flask-cors
+pandas
+numpy
+prophet
+sqlalchemy
+pymysql      # MySQL/MariaDB 드라이버
+apscheduler
+joblib
+boto3
