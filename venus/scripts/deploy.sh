@@ -13,15 +13,13 @@ cd $REPOSITORY
 
 # Flask 앱 인스턴스 종료
 echo "> Killing existing Flask (gunicorn) process if any..."
-
-FLASK_PID=$(pgrep -f 'gunicorn.*app')
-if [ -z "$FLASK_PID" ];
-then
+FLASK_PID=$(pgrep -f 'gunicorn.*app' || true)
+if [ -z "$FLASK_PID" ]; then
   echo "> 종료할 Flask 애플리케이션이 없습니다."
 else
   echo "> kill Flask app with PID: $FLASK_PID"
-  kill -15 $FLASK_PID
-  sleep 2  # 5초 대신 조금 더 짧게
+  kill -15 $FLASK_PID || echo "> kill 실패 - 이미 종료된 프로세스일 수 있음"
+  sleep 2
 fi
 
 if [ -f "$ENV_PATH" ]; then
@@ -29,7 +27,7 @@ if [ -f "$ENV_PATH" ]; then
 fi
 
 echo "> Removing existing venv directory"
-rm -rf $FLASK_APP_DIR/venv
+rm -rf $FLASK_APP_DIR/venv || true  # 삭제 실패해도 계속 진행
 
 echo "> Setting up new virtual environment"
 python3 -m venv $FLASK_APP_DIR/venv
@@ -38,7 +36,6 @@ source $FLASK_APP_DIR/venv/bin/activate
 echo "> Installing dependencies"
 pip install -r $FLASK_APP_DIR/requirements.txt
 
-# Flask 앱 시작
 echo "> Starting Flask app with gunicorn"
 cd $FLASK_APP_DIR
 nohup gunicorn -w 4 app:app -b 0.0.0.0:5002 > $FLASK_APP_DIR/app.log 2>&1 &
