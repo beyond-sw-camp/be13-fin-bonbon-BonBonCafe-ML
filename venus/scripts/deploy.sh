@@ -15,7 +15,7 @@ cd $REPOSITORY
 echo "> Killing existing Flask (gunicorn) process if any..."
 
 FLASK_PID=$(pgrep -f 'gunicorn.*app')
-if [ -z $FLASK_PID ]
+if [ -z "$FLASK_PID" ]
 then
   echo "> 종료할 Flask 애플리케이션이 없습니다."
 else
