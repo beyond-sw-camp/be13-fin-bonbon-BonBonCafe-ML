@@ -26,15 +26,9 @@ if [ -f "$ENV_PATH" ]; then
     source $ENV_PATH
 fi
 
-echo "> Removing existing venv directory"
-rm -rf $FLASK_APP_DIR/venv || true  # 삭제 실패해도 계속 진행
-
-echo "> Setting up new virtual environment"
-python3 -m venv $FLASK_APP_DIR/venv
-source $FLASK_APP_DIR/venv/bin/activate
-
+# 의존성 설치 (가상 환경 없이)
 echo "> Installing dependencies"
-pip install -r $FLASK_APP_DIR/requirements.txt
+pip install --no-cache-dir -r $FLASK_APP_DIR/requirements.txt
 
 echo "> Starting Flask app with gunicorn"
 cd $FLASK_APP_DIR
