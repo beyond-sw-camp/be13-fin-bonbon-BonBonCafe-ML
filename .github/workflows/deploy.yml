@@ -44,6 +44,7 @@ jobs:
 
       - name: Make Zip File
         run: |
+          cd venus
           . venv/bin/activate
           zip -qq -r $GITHUB_SHA.zip . -x "*.git*" -x "venv/*"
         shell: bash
