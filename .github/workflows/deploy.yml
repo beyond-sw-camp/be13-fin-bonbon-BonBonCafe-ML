@@ -32,7 +32,7 @@ jobs:
         run: |
           python -m venv venv
           . venv/bin/activate
-          pip install -r requirements.txt
+          pip install -r venus/requirements.txt
 
       # - name: Create .env file
       #   run: |
