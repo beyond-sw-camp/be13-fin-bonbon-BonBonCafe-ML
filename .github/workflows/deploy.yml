@@ -45,7 +45,7 @@ jobs:
       - name: Make Zip File
         run: |
           . venv/bin/activate
-          zip -qq -r ./$GITHUB_SHA.zip .
+          zip -qq -r $GITHUB_SHA.zip . -x "*.git*" -x "venv/*"
         shell: bash
 
       # AWS 자격증명 구성 및 AWS CLI 설치
