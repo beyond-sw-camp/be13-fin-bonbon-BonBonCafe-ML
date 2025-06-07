@@ -38,6 +38,6 @@ pip install -r $FLASK_APP_DIR/requirements.txt
 
 echo "> Starting Flask app with gunicorn"
 cd $FLASK_APP_DIR
-nohup gunicorn -w 4 app:app -b 0.0.0.0:5002 > $FLASK_APP_DIR/app.log 2>&1 &
+nohup gunicorn -w 4 app:app -b 0.0.0.0:8082 > $FLASK_APP_DIR/app.log 2>&1 &
 
 echo "> Flask app has been started."
