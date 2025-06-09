@@ -56,6 +56,9 @@ def forecast():
     m = Prophet(
         growth='linear',
         changepoint_prior_scale=0.01,
+        seasonality_prior_scale=0.1,
+        holidays_prior_scale=0.1,
+        interval_width=0.4,
         daily_seasonality=True, 
         weekly_seasonality=True, 
         yearly_seasonality=False,   
